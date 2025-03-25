@@ -1,5 +1,3 @@
-// page/api/movies/comment/[idComment]/route.ts
-
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { Db, MongoClient, ObjectId } from 'mongodb';
@@ -53,6 +51,21 @@ export async function GET(request: Request, { params }: { params: Promise<{ idCo
  * /api/movies/comments/{idComment}:
  *   post:
  *     description: Create a new comment
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               text:
+ *                 type: string
+ *               movieId:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Comment created
@@ -84,6 +97,21 @@ export async function POST(request: Request): Promise<NextResponse> {
  *         schema:
  *           type: string
  *         description: The comment ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               text:
+ *                 type: string
+ *               movieId:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Comment updated

@@ -1,5 +1,3 @@
-// page/api/movies/[idMovie]/route.ts
-
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { Db, MongoClient, ObjectId } from 'mongodb';
@@ -8,7 +6,23 @@ import { Db, MongoClient, ObjectId } from 'mongodb';
  * @swagger
  * /api/movies/{idMovie}:
  *   get:
- *     description: Returns a movie by ID
+ *     description: Get a movie by ID
+ *     parameters:
+ *       - in: path
+ *         name: idMovie
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The movie ID
+ *     responses:
+ *       200:
+ *         description: Movie found
+ *       400:
+ *         description: Invalid movie ID
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
  */
 export async function GET(request: Request, context: { params: Promise<{ idMovie: string }> }): Promise<NextResponse> {
     try {
@@ -37,6 +51,24 @@ export async function GET(request: Request, context: { params: Promise<{ idMovie
  * /api/movies/{idMovie}:
  *   post:
  *     description: Create a new movie
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               plot:
+ *                 type: string
+ *               year:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Movie created
+ *       500:
+ *         description: Internal Server Error
  */
 export async function POST(request: Request): Promise<NextResponse> {
     try {
@@ -56,6 +88,35 @@ export async function POST(request: Request): Promise<NextResponse> {
  * /api/movies/{idMovie}:
  *   put:
  *     description: Update a movie by ID
+ *     parameters:
+ *       - in: path
+ *         name: idMovie
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The movie ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               plot:
+ *                 type: string
+ *               year:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Movie updated
+ *       400:
+ *         description: Invalid movie ID
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
  */
 export async function PUT(request: Request, { params }: { params: Promise<{ idMovie: string }> }): Promise<NextResponse> {
     try {
@@ -85,6 +146,22 @@ export async function PUT(request: Request, { params }: { params: Promise<{ idMo
  * /api/movies/{idMovie}:
  *   delete:
  *     description: Delete a movie by ID
+ *     parameters:
+ *       - in: path
+ *         name: idMovie
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The movie ID
+ *     responses:
+ *       200:
+ *         description: Movie deleted successfully
+ *       400:
+ *         description: Invalid movie ID
+ *       404:
+ *         description: Movie not found
+ *       500:
+ *         description: Internal Server Error
  */
 export async function DELETE(request: Request, { params }: { params: Promise<{ idMovie: string }> }): Promise<NextResponse> {
     try {

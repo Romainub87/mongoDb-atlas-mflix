@@ -1,5 +1,3 @@
-// page/api/movies/[idMovie]/route.ts
-
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { Db, MongoClient, ObjectId } from 'mongodb';
@@ -53,6 +51,17 @@ export async function GET(request: Request, { params }: { params: Promise<{ idTh
  * /api/theaters/{idTheater}:
  *   post:
  *     description: Create a new theater
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               theaterId:
+ *                 type: number
+ *               location:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Theater created
@@ -85,6 +94,17 @@ export async function POST(request: Request): Promise<NextResponse> {
  *         schema:
  *           type: string
  *         description: The theater ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               theaterId:
+ *                 type: number
+ *               location:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Theater updated
