@@ -10,12 +10,12 @@ import { Db, MongoClient, ObjectId } from 'mongodb';
  *   get:
  *     description: Returns a movie by ID
  */
-export async function GET(request: Request, { params }: { params: { idMovie: string } }): Promise<NextResponse> {
+export async function GET(request: Request, context: { params: Promise<{ idMovie: string }> }): Promise<NextResponse> {
     try {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
 
-        const { idMovie } = params;
+        const { idMovie } = await context.params;
         if (!ObjectId.isValid(idMovie)) {
             return NextResponse.json({ status: 400, message: 'Invalid movie ID', error: 'ID format is incorrect' });
         }
@@ -57,11 +57,11 @@ export async function POST(request: Request): Promise<NextResponse> {
  *   put:
  *     description: Update a movie by ID
  */
-export async function PUT(request: Request, { params }: { params: { idMovie: string } }): Promise<NextResponse> {
+export async function PUT(request: Request, { params }: { params: Promise<{ idMovie: string }> }): Promise<NextResponse> {
     try {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
-        const { idMovie } = params;
+        const { idMovie } = await params;
         const body = await request.json();
 
         if (!ObjectId.isValid(idMovie)) {
@@ -86,11 +86,11 @@ export async function PUT(request: Request, { params }: { params: { idMovie: str
  *   delete:
  *     description: Delete a movie by ID
  */
-export async function DELETE(request: Request, { params }: { params: { idMovie: string } }): Promise<NextResponse> {
+export async function DELETE(request: Request, { params }: { params: Promise<{ idMovie: string }> }): Promise<NextResponse> {
     try {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
-        const { idMovie } = params;
+        const { idMovie } = await params;
 
         if (!ObjectId.isValid(idMovie)) {
             return NextResponse.json({ status: 400, message: 'Invalid movie ID', error: 'ID format is incorrect' });

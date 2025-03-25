@@ -26,12 +26,12 @@ import { Db, MongoClient, ObjectId } from 'mongodb';
  *       500:
  *         description: Internal Server Error
  */
-export async function GET(request: Request, { params }: { params: { idComment: string } }): Promise<NextResponse> {
+export async function GET(request: Request, { params }: { params: Promise<{ idComment: string }> }): Promise<NextResponse> {
     try {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
 
-        const { idComment } = params;
+        const { idComment } = await params;
         if (!ObjectId.isValid(idComment)) {
             return NextResponse.json({ status: 400, message: 'Invalid movie ID', error: 'ID format is incorrect' });
         }
@@ -94,11 +94,11 @@ export async function POST(request: Request): Promise<NextResponse> {
  *       500:
  *         description: Internal Server Error
  */
-export async function PUT(request: Request, { params }: { params: { idComment: string } }): Promise<NextResponse> {
+export async function PUT(request: Request, { params }: { params: Promise<{ idComment: string }> }): Promise<NextResponse> {
     try {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
-        const { idComment } = params;
+        const { idComment } = await params;
         const body = await request.json();
 
         if (!ObjectId.isValid(idComment)) {
@@ -139,11 +139,11 @@ export async function PUT(request: Request, { params }: { params: { idComment: s
  *       500:
  *         description: Internal Server Error
  */
-export async function DELETE(request: Request, { params }: { params: { idComment: string } }): Promise<NextResponse> {
+export async function DELETE(request: Request, { params }: { params: Promise<{ idComment: string }> }): Promise<NextResponse> {
     try {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
-        const { idComment } = params;
+        const { idComment } = await params;
 
         if (!ObjectId.isValid(idComment)) {
             return NextResponse.json({ status: 400, message: 'Invalid comment ID', error: 'ID format is incorrect' });
