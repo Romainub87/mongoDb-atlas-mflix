@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { testDatabaseConnection } from "../actions";
+import { testDatabaseConnection } from "./actions";
 import Link from "next/link";
 
 export default async function Home() {
@@ -66,7 +66,7 @@ export default async function Home() {
           This page uses the&nbsp;<strong>App Router</strong>. Check out the
           Pages Router version here:&nbsp;
           <Link
-            href="/"
+            href="/public"
             className="underline transition-colors ease-in-out hover:text-green-500"
           >
             <code>pages/index.tsx</code>
