@@ -73,7 +73,6 @@ export async function POST(request: Request): Promise<NextResponse> {
         const client: MongoClient = await clientPromise;
         const db: Db = client.db('sample_mflix');
         const body = await request.json();
-        console.log(body);
         const result = await db.collection('theaters').insertOne(body);
 
         return NextResponse.json({ status: 201, data: result });
