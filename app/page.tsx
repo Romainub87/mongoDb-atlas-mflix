@@ -16,7 +16,7 @@ const Home = () => {
   return (
       <>
           <div className="flex justify-between w-1/2 mx-auto mt-10">
-              <p className="text-center text-2xl">Welcome, {session.user!.username || 'User'}!</p>
+              <p className="text-center text-2xl">Welcome, {session.user!.name || 'User'}!</p>
               <button onClick={() => signOut()}>
                   Se déconnecter
               </button>
