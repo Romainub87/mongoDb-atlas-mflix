@@ -15,5 +15,6 @@ export const config = {
     matcher: [
         '/api/movies/:path*',
         '/api/theaters/:path*',
+        '/api-doc',
     ]
 };
