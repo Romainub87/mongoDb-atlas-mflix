@@ -13,7 +13,13 @@ export async function POST(request: Request) {
         const db = client.db('cluster0');
         const collection = db.collection('users');
 
-        // Save the user to the database
+        // Check if the user already exists
+        const existingUser = await collection.findOne({ username });
+
+        if (existingUser) {
+            return NextResponse.json({ message: 'User already exists' }, { status: 400 });
+        }
+
         const result = await collection.insertOne({
             username,
             password: hashedPassword,
